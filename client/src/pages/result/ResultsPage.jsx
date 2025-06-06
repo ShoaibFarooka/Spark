@@ -365,8 +365,8 @@ const ResultsPage = () => {
             <div className="max-w-4xl mx-auto">
 
                 {/* Profile Header */}
-                <div className="bg-dark-lighter/80 rounded-2xl shadow-2xl p-6 border border-white/10 relative mb-8">
-                    <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-primary to-secondary opacity-40 blur-lg z-0"></div>
+                <div className="bg-dark-lighter/80 rounded-2xl shadow-sm p-6 border border-white/10 relative mb-8">
+                    <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-primary to-secondary opacity-20 blur-lg z-0"></div>
                     <div className="relative z-10">
                         <h2 className="text-3xl font-extrabold text-white mb-4 gradient-text">{profileData.name}'s SugarMatch Profile</h2>
                         <div className="flex items-center justify-between">
@@ -385,8 +385,8 @@ const ResultsPage = () => {
                 </div>
 
                 {/* Bio Section */}
-                <div className="bg-dark-lighter/80 rounded-2xl shadow-2xl p-6 border border-white/10 relative mb-8">
-                    <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-primary to-secondary opacity-40 blur-lg z-0"></div>
+                <div className="bg-dark-lighter/80 rounded-2xl shadow-sm p-6 border border-white/10 relative mb-8">
+                    <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-primary to-secondary opacity-20 blur-lg z-0"></div>
                     <div className="relative z-10">
                         <div className="flex justify-between items-center mb-4">
                             <h3 className="text-xl font-bold text-white">Bio</h3>
@@ -427,8 +427,8 @@ const ResultsPage = () => {
                 </div>
 
                 {/* Verification Section */}
-                <div className="bg-dark-lighter/80 rounded-2xl shadow-2xl p-6 border border-white/10 relative mb-8">
-                    <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-primary to-secondary opacity-40 blur-lg z-0"></div>
+                <div className="bg-dark-lighter/80 rounded-2xl shadow-sm p-6 border border-white/10 relative mb-8">
+                    <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-primary to-secondary opacity-20 blur-lg z-0"></div>
                     <div className="relative z-10">
                         <h3 className="text-xl font-bold text-white mb-4">Verified Card</h3>
                         <div className="flex items-center text-green-400 font-semibold mb-4">
@@ -443,8 +443,8 @@ const ResultsPage = () => {
                 </div>
 
                 {/* Connection Score Section */}
-                <div className="bg-dark-lighter/80 rounded-2xl shadow-2xl p-6 border border-white/10 relative mb-8">
-                    <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-primary to-secondary opacity-40 blur-lg z-0"></div>
+                <div className="bg-dark-lighter/80 rounded-2xl shadow-sm p-6 border border-white/10 relative mb-8">
+                    <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-primary to-secondary opacity-20 blur-lg z-0"></div>
                     <div className="relative z-10">
                         <h3 className="text-xl font-bold text-white mb-4">Connection Score</h3>
                         <p className="text-white/90 text-2xl font-bold mb-4">⭐ {profileData.connectionScore.overall}/5 <span className="text-white/70 text-sm">({profileData.connectionScore.reviews} reviews)</span></p>
@@ -457,8 +457,8 @@ const ResultsPage = () => {
                 </div>
 
                 {/* Preferences & Boundaries Section */}
-                <div className="bg-dark-lighter/80 rounded-2xl shadow-2xl p-6 border border-white/10 relative mb-8">
-                    <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-primary to-secondary opacity-40 blur-lg z-0"></div>
+                <div className="bg-dark-lighter/80 rounded-2xl shadow-sm p-6 border border-white/10 relative mb-8">
+                    <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-primary to-secondary opacity-20 blur-lg z-0"></div>
                     <div className="relative z-10">
                         <div className="flex justify-between items-center mb-4">
                             <h3 className="text-xl font-bold text-white">Preferences & Boundaries</h3>
@@ -550,8 +550,8 @@ const ResultsPage = () => {
                 </div>
 
                 {/* Arrangement Preferences Section */}
-                <div className="bg-dark-lighter/80 rounded-2xl shadow-2xl p-6 border border-white/10 relative mb-8">
-                    <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-primary to-secondary opacity-40 blur-lg z-0"></div>
+                <div className="bg-dark-lighter/80 rounded-2xl shadow-sm p-6 border border-white/10 relative mb-8">
+                    <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-primary to-secondary opacity-20 blur-lg z-0"></div>
                     <div className="relative z-10">
                         <div className="flex justify-between items-center mb-4">
                             <h3 className="text-xl font-bold text-white">Arrangement Preferences</h3>
@@ -636,8 +636,8 @@ const ResultsPage = () => {
                 </div>
 
                 {/* Looking For Section */}
-                <div className="bg-dark-lighter/80 rounded-2xl shadow-2xl p-6 border border-white/10 relative mb-8">
-                    <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-primary to-secondary opacity-40 blur-lg z-0"></div>
+                <div className="bg-dark-lighter/80 rounded-2xl shadow-sm p-6 border border-white/10 relative mb-8">
+                    <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-primary to-secondary opacity-20 blur-lg z-0"></div>
                     <div className="relative z-10">
                         <div className="flex justify-between items-center mb-4">
                             <h3 className="text-xl font-bold text-white">Looking For</h3>
@@ -702,8 +702,8 @@ const ResultsPage = () => {
                 </div>
 
                 {/* Upcoming Availability Section */}
-                <div className="bg-dark-lighter/80 rounded-2xl shadow-2xl p-6 border border-white/10 relative mb-8">
-                    <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-primary to-secondary opacity-40 blur-lg z-0"></div>
+                <div className="bg-dark-lighter/80 rounded-2xl shadow-sm p-6 border border-white/10 relative mb-8">
+                    <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-primary to-secondary opacity-20 blur-lg z-0"></div>
                     <div className="relative z-10">
                         <div className="flex justify-between items-center mb-4">
                             <h3 className="text-xl font-bold text-white">Upcoming Availability</h3>
@@ -819,8 +819,8 @@ const ResultsPage = () => {
                 </div>
 
                 {/* My Dating Profiles Section */}
-                <div className="bg-dark-lighter/80 rounded-2xl shadow-2xl p-6 border border-white/10 relative mb-8">
-                    <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-primary to-secondary opacity-40 blur-lg z-0"></div>
+                <div className="bg-dark-lighter/80 rounded-2xl shadow-sm p-6 border border-white/10 relative mb-8">
+                    <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-primary to-secondary opacity-20 blur-lg z-0"></div>
                     <div className="relative z-10">
                         <div className="flex justify-between items-center mb-4">
                             <h3 className="text-xl font-bold text-white">My Dating Profiles</h3>
@@ -892,8 +892,8 @@ const ResultsPage = () => {
                 </div>
 
                 {/* Latest Message Section */}
-                <div className="bg-dark-lighter/80 rounded-2xl shadow-2xl p-6 border border-white/10 relative mb-8">
-                    <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-primary to-secondary opacity-40 blur-lg z-0"></div>
+                <div className="bg-dark-lighter/80 rounded-2xl shadow-sm p-6 border border-white/10 relative mb-8">
+                    <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-primary to-secondary opacity-20 blur-lg z-0"></div>
                     <div className="relative z-10">
                         <h3 className="text-xl font-bold text-white mb-4">Latest Message</h3>
                         <div className="text-white/80">
@@ -907,8 +907,8 @@ const ResultsPage = () => {
                 </div>
 
                 {/* Top Matches Section */}
-                <div className="bg-dark-lighter/80 rounded-2xl shadow-2xl p-6 border border-white/10 relative">
-                    <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-primary to-secondary opacity-40 blur-lg z-0"></div>
+                <div className="bg-dark-lighter/80 rounded-2xl shadow-sm p-6 border border-white/10 relative">
+                    <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-primary to-secondary opacity-20 blur-lg z-0"></div>
                     <div className="relative z-10">
                         <h3 className="text-xl font-bold text-white mb-6">Top 3 Sugar Babies Who Match Your Profile</h3>
                         <p className="text-white/70 text-sm mb-6">Connect and message these matches now!</p>

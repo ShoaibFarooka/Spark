@@ -28,7 +28,7 @@ const Login = () => {
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-dark-darker via-dark-lighter to-dark-darker px-4 pt-24">
-            <div className="w-full max-w-md bg-dark-lighter/80 rounded-2xl shadow-2xl p-8 border border-white/10 relative">
+            <div className="w-full max-w-md bg-dark-lighter/80 rounded-2xl shadow-sm p-8 border border-white/10 relative">
                 <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-primary to-secondary opacity-40 blur-lg z-0"></div>
                 <div className="relative z-10">
                     <h2 className="text-3xl font-extrabold text-white text-center mb-8 gradient-text">Login</h2>

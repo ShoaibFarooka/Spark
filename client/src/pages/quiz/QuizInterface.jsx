@@ -176,7 +176,7 @@ const QuizInterface = () => {
 
     return (
         <div className="min-h-screen flex flex-col items-center bg-gradient-to-br from-dark-darker via-dark-lighter to-dark-darker px-4 py-8">
-            <div className="w-full max-w-2xl bg-dark-lighter/80 rounded-2xl shadow-2xl p-8 border border-white/10 relative mt-24">
+            <div className="w-full max-w-2xl bg-dark-lighter/80 rounded-2xl shadow-sm p-8 border border-white/10 relative mt-24">
                 <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-primary to-secondary opacity-40 blur-lg z-0"></div>
                 <div className="relative z-10 flex flex-col items-center">
 

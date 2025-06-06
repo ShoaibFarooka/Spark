@@ -22,7 +22,7 @@ const Dashboard = () => {
         <div className="min-h-screen bg-gradient-to-br from-dark-darker via-dark-lighter to-dark-darker px-4 py-8 pt-24">
             <div className="max-w-6xl mx-auto">
                 {/* Profile Section */}
-                <div className="bg-dark-lighter/80 rounded-2xl shadow-2xl p-8 border border-white/10 relative mb-8">
+                <div className="bg-dark-lighter/80 rounded-2xl shadow-sm p-8 border border-white/10 relative mb-8">
                     <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-primary to-secondary opacity-40 blur-lg z-0"></div>
                     <div className="relative z-10">
                         <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
@@ -60,7 +60,7 @@ const Dashboard = () => {
                 </div>
 
                 {/* Badges Section */}
-                <div className="bg-dark-lighter/80 rounded-2xl shadow-2xl p-8 border border-white/10 relative mb-8">
+                <div className="bg-dark-lighter/80 rounded-2xl shadow-sm p-8 border border-white/10 relative mb-8">
                     <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-primary to-secondary opacity-40 blur-lg z-0"></div>
                     <div className="relative z-10">
                         <h2 className="text-xl font-bold text-white mb-6">Achievements</h2>
@@ -79,7 +79,7 @@ const Dashboard = () => {
                 </div>
 
                 {/* Future Features Placeholder */}
-                <div className="bg-dark-lighter/80 rounded-2xl shadow-2xl p-8 border border-white/10 relative">
+                <div className="bg-dark-lighter/80 rounded-2xl shadow-sm p-8 border border-white/10 relative">
                     <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-primary to-secondary opacity-40 blur-lg z-0"></div>
                     <div className="relative z-10">
                         <h2 className="text-xl font-bold text-white mb-6">Coming Soon</h2>
