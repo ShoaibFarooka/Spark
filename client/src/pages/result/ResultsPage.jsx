@@ -100,6 +100,11 @@ const ResultsPage = () => {
     const [isEditingDatingProfiles, setIsEditingDatingProfiles] = useState(false);
     const [editedDatingProfiles, setEditedDatingProfiles] = useState(profileData.datingProfiles);
 
+    const [showVerifiedCard, setShowVerifiedCard] = useState(false);
+    const [showConnectionScore, setShowConnectionScore] = useState(false);
+
+
+
     // Accordion state for Intimacy Preferences
     const [showIntimacy, setShowIntimacy] = useState(false);
 
@@ -113,200 +118,11 @@ const ResultsPage = () => {
 
     // Accordion state for combined extra info
     const [showExtraInfo, setShowExtraInfo] = useState(false);
-
-    // Handle Bio edit actions
-    const handleEditBio = () => {
-        setIsEditingBio(true);
-        setEditedBio(profileData.bio); // Load current bio into edit state
-    };
-
-    const handleSaveBio = () => {
-        // In a real app, you would send editedBio to your backend here
-        console.log('Saving Bio:', editedBio);
-        setProfileData(prevData => ({ ...prevData, bio: editedBio })); // Update local state
-        setIsEditingBio(false);
-        // TODO: Add logic to call backend API to save the bio
-    };
-
-    const handleCancelBio = () => {
-        setIsEditingBio(false);
-        setEditedBio(profileData.bio); // Revert to original bio
-    };
-
-    // Handle Preferences & Boundaries edit actions
-    const handleEditPreferences = () => {
-        setIsEditingPreferences(true);
-        // Deep copy the arrays to avoid modifying the original state directly
-        setEditedPreferences([...profileData.preferences.map(pref => ({ ...pref }))]);
-        setEditedBoundaries([...profileData.boundaries]);
-    };
-
-    const handleSavePreferences = () => {
-        // In a real app, you would send editedPreferences and editedBoundaries to your backend
-        console.log('Saving Preferences & Boundaries:', { preferences: editedPreferences, boundaries: editedBoundaries });
-        setProfileData(prevData => ({ ...prevData, preferences: editedPreferences, boundaries: editedBoundaries })); // Update local state
-        setIsEditingPreferences(false);
-        // TODO: Add logic to call backend API to save the preferences and boundaries
-    };
-
-    const handleCancelPreferences = () => {
-        setIsEditingPreferences(false);
-        // Revert to original preferences and boundaries
-        setEditedPreferences([...profileData.preferences.map(pref => ({ ...pref }))]);
-        setEditedBoundaries([...profileData.boundaries]);
-    };
-
-    // Helper to update a single preference score
-    const handlePreferenceScoreChange = (index, value) => {
-        const updatedPreferences = [...editedPreferences];
-        updatedPreferences[index].score = parseInt(value);
-        setEditedPreferences(updatedPreferences);
-    };
-
-    // Helper to update a single boundary
-    const handleBoundaryChange = (index, value) => {
-        const updatedBoundaries = [...editedBoundaries];
-        updatedBoundaries[index] = value;
-        setEditedBoundaries(updatedBoundaries);
-    };
-
-    // Helper to add a boundary
-    const handleAddBoundary = () => {
-        setEditedBoundaries([...editedBoundaries, '']);
-    };
-
-    // Helper to remove a boundary
-    const handleRemoveBoundary = (index) => {
-        setEditedBoundaries(editedBoundaries.filter((_, i) => i !== index));
-    };
-
-    // Handle Arrangement Preferences edit actions
-    const handleEditArrangement = () => {
-        setIsEditingArrangement(true);
-        setEditedArrangement([...profileData.arrangementPreferences.map(item => ({ ...item }))]);
-    };
-
-    const handleSaveArrangement = () => {
-        // In a real app, you would send editedArrangement to your backend
-        console.log('Saving Arrangement Preferences:', editedArrangement);
-        setProfileData(prevData => ({ ...prevData, arrangementPreferences: editedArrangement }));
-        setIsEditingArrangement(false);
-        // TODO: Add logic to call backend API to save the arrangement preferences
-    };
-
-    const handleCancelArrangement = () => {
-        setIsEditingArrangement(false);
-        setEditedArrangement([...profileData.arrangementPreferences.map(item => ({ ...item }))]);
-    };
-
-    // Helper to update a single arrangement preference
-    const handleArrangementChange = (index, field, value) => {
-        const updatedArrangement = [...editedArrangement];
-        updatedArrangement[index][field] = value;
-        setEditedArrangement(updatedArrangement);
-    };
-
-    // Helper to add an arrangement preference
-    const handleAddArrangement = () => {
-        setEditedArrangement([...editedArrangement, { type: '', amount: '', icon: '📄', notes: '' }]);
-    };
-
-    // Helper to remove an arrangement preference
-    const handleRemoveArrangement = (index) => {
-        setEditedArrangement(editedArrangement.filter((_, i) => i !== index));
-    };
-
-    // Handle Looking For edit actions
-    const handleEditLookingFor = () => {
-        setIsEditingLookingFor(true);
-        setEditedLookingFor([...profileData.lookingFor]);
-    };
-
-    const handleSaveLookingFor = () => {
-        // In a real app, you would send editedLookingFor to your backend
-        console.log('Saving Looking For:', editedLookingFor);
-        setProfileData(prevData => ({ ...prevData, lookingFor: editedLookingFor }));
-        setIsEditingLookingFor(false);
-        // TODO: Add logic to call backend API to save the looking for items
-    };
-
-    const handleCancelLookingFor = () => {
-        setIsEditingLookingFor(false);
-        setEditedLookingFor([...profileData.lookingFor]);
-    };
-
-    // Helper to update a single Looking For item
-    const handleLookingForChange = (index, value) => {
-        const updatedLookingFor = [...editedLookingFor];
-        updatedLookingFor[index] = value;
-        setEditedLookingFor(updatedLookingFor);
-    };
-
-    // Helper to add a Looking For item
-    const handleAddLookingFor = () => {
-        setEditedLookingFor([...editedLookingFor, '']);
-    };
-
-    // Helper to remove a Looking For item
-    const handleRemoveLookingFor = (index) => {
-        setEditedLookingFor(editedLookingFor.filter((_, i) => i !== index));
-    };
-
-    // Handle Upcoming Availability edit actions
-    const handleEditAvailability = () => {
-        setIsEditingAvailability(true);
-        setEditedAvailability([...profileData.availability.map(day => ({ ...day, times: [...day.times.map(time => ({ ...time }))] }))]);
-    };
-
-    const handleSaveAvailability = () => {
-        // In a real app, you would send editedAvailability to your backend
-        console.log('Saving Upcoming Availability:', editedAvailability);
-        setProfileData(prevData => ({ ...prevData, availability: editedAvailability }));
-        setIsEditingAvailability(false);
-        // TODO: Add logic to call backend API to save the availability
-    };
-
-    const handleCancelAvailability = () => {
-        setIsEditingAvailability(false);
-        setEditedAvailability([...profileData.availability.map(day => ({ ...day, times: [...day.times.map(time => ({ ...time }))] }))]);
-    };
-
-    // Helper to update a single availability field
-    const handleAvailabilityChange = (dayIndex, timeIndex, field, value) => {
-        const updatedAvailability = [...editedAvailability];
-        if (timeIndex === null) {
-            // Editing the date field for a day
-            updatedAvailability[dayIndex][field] = value;
-        } else {
-            // Editing a time slot field for a day
-            updatedAvailability[dayIndex].times[timeIndex][field] = value;
-        }
-        setEditedAvailability(updatedAvailability);
-    };
-
-    // Helper to add a day to availability
-    const handleAddAvailabilityDay = () => {
-        setEditedAvailability([...editedAvailability, { date: '', times: [] }]);
-    };
-
-    // Helper to remove a day from availability
-    const handleRemoveAvailabilityDay = (dayIndex) => {
-        setEditedAvailability(editedAvailability.filter((_, i) => i !== dayIndex));
-    };
-
-    // Helper to add a time slot to a specific day
-    const handleAddAvailabilityTime = (dayIndex) => {
-        const updatedAvailability = [...editedAvailability];
-        updatedAvailability[dayIndex].times.push({ period: '', type: '', location: '' });
-        setEditedAvailability(updatedAvailability);
-    };
-
-    // Helper to remove a time slot from a specific day
-    const handleRemoveAvailabilityTime = (dayIndex, timeIndex) => {
-        const updatedAvailability = [...editedAvailability];
-        updatedAvailability[dayIndex].times = updatedAvailability[dayIndex].times.filter((_, i) => i !== timeIndex);
-        setEditedAvailability(updatedAvailability);
-    };
+    // Add separate states for each section
+    const [showLookingFor, setShowLookingFor] = useState(false);
+    const [showAvailability, setShowAvailability] = useState(false);
+    const [showDatingProfiles, setShowDatingProfiles] = useState(false);
+    const [showLatestMessage, setShowLatestMessage] = useState(false);
 
     // Simulate generating a shareable URL (replace with actual backend logic)
     const [shareUrl, setShareUrl] = useState('');
@@ -422,23 +238,24 @@ const ResultsPage = () => {
                         <span className="text-3xl font-extrabold text-white">{profileData.name}</span>
                         <span className="text-red-400 text-xl">✔️</span>
                     </div>
-                    {/* Editable Bio */}
+                    {/* Bio (display only, no edit button) */}
                     <div className="w-full flex flex-col items-center">
                         <div className="flex justify-between items-center w-full mb-2">
-                            <span className="text-white/80 text-lg">{!isEditingBio ? profileData.bio : ''}</span>
-                            {!isEditingBio ? (
-                                <button onClick={handleEditBio} className="text-white text-xs px-3 py-1 rounded-full font-medium bg-gradient-to-r from-primary to-secondary hover:opacity-90 ml-2">Edit</button>
-                            ) : null}
+                            <span className="text-white/80 text-lg">{profileData.bio}</span>
                         </div>
-                        {isEditingBio && (
-                            <div className="w-full flex flex-col gap-2">
-                                <textarea value={editedBio} onChange={e => setEditedBio(e.target.value)} className="w-full h-24 px-4 py-2 rounded-lg bg-dark-darker/80 text-white border border-white/10 focus:border-primary focus:ring-2 focus:ring-primary/40 outline-none resize-none" />
-                                <div className="flex gap-2 self-end">
-                                    <button onClick={handleSaveBio} className="text-green-400 border border-green-400/50 px-3 py-1 rounded-full text-xs">Save</button>
-                                    <button onClick={handleCancelBio} className="text-red-400 border border-red-400/50 px-3 py-1 rounded-full text-xs">Cancel</button>
-                                </div>
-                            </div>
-                        )}
+                    </div>
+                    {/* Shareable Link Section */}
+                    <div className="w-full flex flex-col md:flex-row items-center justify-between bg-dark-lighter/80 rounded-xl p-4 mt-2 mb-2 shadow border border-white/10">
+                        <div className="flex flex-col">
+                            <span className="text-white font-semibold text-base mb-1">Profile URL:</span>
+                            <a href={shareUrl} target="_blank" rel="noopener noreferrer" className="text-blue-300 hover:underline text-sm break-all">{shareUrl}</a>
+                        </div>
+                        <button
+                            onClick={handleShare}
+                            className="mt-3 md:mt-0 md:ml-4 px-5 py-2 rounded-full bg-cyan-400 hover:bg-cyan-500 text-white font-semibold flex items-center gap-2 shadow-lg transition-all"
+                        >
+                            <span role="img" aria-label="link">🔗</span> Share Profile
+                        </button>
                     </div>
                 </div>
                 {/* Scores Row */}
@@ -475,220 +292,137 @@ const ResultsPage = () => {
                         <div className="text-lg font-semibold">4,531</div>
                     </div>
                 </div>
-                <div className="flex flex-col md:flex-row gap-4 w-full max-w-2xl mb-4">
+
+                {/* Verified Card Accordion */}
+                <div className="w-full max-w-xl mb-4">
+                    <button
+                        onClick={() => setShowVerifiedCard(prev => !prev)}
+                        className="w-full flex items-center justify-between bg-dark-lighter/80 rounded-xl p-4 text-white font-semibold text-lg border border-white/10 hover:bg-dark-lighter/90 transition-all"
+                    >
+                        <span>Verified Card</span>
+                        <span className="text-xl">{showVerifiedCard ? '▲' : '▼'}</span>
+                    </button>
+
+                    {showVerifiedCard && (
+                        <div className="bg-dark-lighter rounded-b-xl p-5 border-t border-white/10">
+                            <div className="text-green-400 font-semibold text-base mb-4 flex items-center gap-2">
+                                ✅ Verified Profile
+                            </div>
+                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-white/80">
+                                <div className="flex items-center gap-2">
+                                    <span className="text-white/60">🪪</span>
+                                    <span>{profileData.verification.identity ? 'Identity Verified' : 'Not Verified'}</span>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <span className="text-white/60">📷</span>
+                                    <span>{profileData.verification.liveness ? 'Liveness Verified' : 'Not Verified'}</span>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <span className="text-white/60">🌐</span>
+                                    <span>{profileData.verification.socialMedia ? 'Social Media Verified' : 'Not Verified'}</span>
+                                </div>
+                            </div>
+                        </div>
+                    )}
                 </div>
-                <div className="flex flex-col md:flex-row gap-4 w-full max-w-2xl mb-4">
-                    {/* Preferences & Boundaries and Arrangement & Expectations Accordions side by side, independent height */}
-                    <div className="w-full max-w-2xl mb-4 text-center">
-                        {/* Preferences & Boundaries Accordion */}
-                        <div
-                            className="inline-block align-top bg-dark-lighter/80 rounded-xl shadow border border-white/10 mb-4"
-                            style={{ width: '100%', maxWidth: '500px', marginRight: '8px' }}
-                        >
-                            <button
-                                onClick={() => setShowPreferences((prev) => !prev)}
-                                className="w-full flex items-center justify-between p-5 rounded-t-xl text-white text-lg font-semibold focus:outline-none"
-                            >
-                                <span className="flex items-center gap-2">
-                                    <span className="text-2xl">⚙️</span> Preferences & Boundaries
-                                </span>
-                                <span className="text-xl">{showPreferences ? '▲' : '▼'}</span>
-                            </button>
-                            {showPreferences && (
-                                <div className="p-5 pt-0">
-                                    <div className="flex justify-between items-center mb-4">
-                                        <h3 className="text-lg font-bold text-white">&nbsp;</h3>
-                                        {!isEditingPreferences ? (
-                                            <button
-                                                onClick={handleEditPreferences}
-                                                className="text-white text-xs px-3 py-1 rounded-full font-medium bg-gradient-to-r from-primary to-secondary hover:opacity-90"
-                                            >
-                                                Edit
-                                            </button>
-                                        ) : (
-                                            <div className="flex gap-2">
-                                                <button
-                                                    onClick={handleSavePreferences}
-                                                    className="text-green-400 border border-green-400/50 px-3 py-1 rounded-full text-xs"
-                                                >
-                                                    Save
-                                                </button>
-                                                <button
-                                                    onClick={handleCancelPreferences}
-                                                    className="text-red-400 border border-red-400/50 px-3 py-1 rounded-full text-xs"
-                                                >
-                                                    Cancel
-                                                </button>
-                                            </div>
-                                        )}
+
+                {/* Connection Score Accordion */}
+                <div className="w-full max-w-xl mb-4">
+                    <button
+                        onClick={() => setShowConnectionScore(prev => !prev)}
+                        className="w-full flex items-center justify-between bg-dark-lighter/80 rounded-xl p-4 text-white font-semibold text-lg border border-white/10 hover:bg-dark-lighter/90 transition-all"
+                    >
+                        <span>Connection Score</span>
+                        <span className="text-xl">{showConnectionScore ? '▲' : '▼'}</span>
+                    </button>
+
+                    {showConnectionScore && (
+                        <div className="bg-dark-lighter rounded-b-xl p-5 border-t border-white/10 space-y-4">
+                            <div className="flex items-center gap-2 text-yellow-400 text-xl font-bold">
+                                ⭐ {profileData.connectionScore.overall}/5
+                                <span className="text-sm text-white/70 font-normal ml-2">({profileData.connectionScore.reviews} reviews)</span>
+                            </div>
+
+                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-white/90">
+                                {profileData.connectionScore.ratings.map((rating, index) => (
+                                    <div key={index} className="flex items-center gap-2">
+                                        <span className="text-xl">{rating.icon}</span>
+                                        <span className="whitespace-nowrap">{rating.name} {rating.score}/5</span>
                                     </div>
-                                    {isEditingPreferences ? (
-                                        <div className="space-y-2">
-                                            {editedPreferences.map((pref, index) => (
-                                                <div key={index} className="flex items-center gap-2">
-                                                    <span className="text-xl">{pref.icon}</span>
-                                                    <span className="flex-1">{pref.name}:</span>
-                                                    <input
-                                                        type="number"
-                                                        min="0"
-                                                        max="10"
-                                                        value={pref.score}
-                                                        onChange={(e) => handlePreferenceScoreChange(index, e.target.value)}
-                                                        className="w-16 px-2 py-1 rounded-lg bg-dark-darker/80 text-white border border-white/10"
-                                                    />
-                                                    <span className="text-white/70">/10</span>
-                                                </div>
-                                            ))}
-                                            <h4 className="text-base font-semibold text-white mt-2">Boundaries:</h4>
-                                            {editedBoundaries.map((boundary, index) => (
-                                                <div key={index} className="flex items-center gap-2">
-                                                    <input
-                                                        type="text"
-                                                        value={boundary}
-                                                        onChange={(e) => handleBoundaryChange(index, e.target.value)}
-                                                        className="flex-1 px-4 py-2 rounded-lg bg-dark-darker/80 text-white border border-white/10"
-                                                    />
-                                                    <button
-                                                        onClick={() => handleRemoveBoundary(index)}
-                                                        className="text-red-400 border border-red-400/50 px-2 py-1 rounded-full text-xs"
-                                                    >
-                                                        Remove
-                                                    </button>
-                                                </div>
-                                            ))}
-                                            <button
-                                                onClick={handleAddBoundary}
-                                                className="text-green-400 border border-green-400/50 px-3 py-1 rounded-full text-xs mt-2"
-                                            >
-                                                Add Boundary
-                                            </button>
-                                        </div>
-                                    ) : (
-                                        <div className="space-y-3">
-                                            {profileData.preferences.map((pref, index) => (
-                                                <div key={index} className="flex items-center gap-2 text-white/90">
-                                                    <span className="text-xl flex items-center justify-center">{pref.icon}</span>
-                                                    <span>{pref.description}</span>
-                                                    <span className="ml-2 text-primary font-semibold">({pref.score}/10)</span>
-                                                </div>
-                                            ))}
-                                            <div className="mt-4">
-                                                <span className="font-bold text-white block mb-1 text-left">Boundaries:</span>
-                                                <ul className="list-disc text-white/80 ml-7 space-y-1 text-left">
-                                                    {profileData.boundaries.map((boundary, index) => (
-                                                        <li key={index}>{boundary}</li>
-                                                    ))}
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    )}
-                                </div>
-                            )}
+                                ))}
+                            </div>
                         </div>
-                        {/* Arrangement & Expectations Accordion */}
-                        <div
-                            className="inline-block align-top bg-dark-lighter/80 rounded-xl shadow border border-white/10 mb-4"
-                            style={{ width: '100%', maxWidth: '500px' }}
+                    )}
+                </div>
+
+
+                {/* Preferences & Boundaries */}
+                <div className="w-full max-w-xl mb-4">
+                    <div className="bg-dark-lighter/80 rounded-xl shadow border border-white/10">
+                        <button
+                            onClick={() => setShowPreferences(prev => !prev)}
+                            className="w-full flex items-center justify-between p-5 rounded-t-xl text-white text-lg font-semibold focus:outline-none"
                         >
-                            <button
-                                onClick={() => setShowArrangement((prev) => !prev)}
-                                className="w-full flex items-center justify-between p-5 rounded-t-xl text-white text-lg font-semibold focus:outline-none"
-                            >
-                                <span className="flex items-center gap-2 truncate max-w-[80%]">
-                                    <span className="text-2xl">❤️</span>
-                                    <span className="truncate">Arrangement & Expectations</span>
-                                </span>
-                                <span className="text-xl">{showArrangement ? '▲' : '▼'}</span>
-                            </button>
-                            {showArrangement && (
-                                <div className="p-5 pt-0">
-                                    <div className="flex justify-between items-center mb-4">
-                                        <h3 className="text-lg font-bold text-white">&nbsp;</h3>
-                                        {!isEditingArrangement ? (
-                                            <button
-                                                onClick={handleEditArrangement}
-                                                className="text-white text-xs px-3 py-1 rounded-full font-medium bg-gradient-to-r from-primary to-secondary hover:opacity-90"
-                                            >
-                                                Edit
-                                            </button>
-                                        ) : (
-                                            <div className="flex gap-2">
-                                                <button
-                                                    onClick={handleSaveArrangement}
-                                                    className="text-green-400 border border-green-400/50 px-3 py-1 rounded-full text-xs"
-                                                >
-                                                    Save
-                                                </button>
-                                                <button
-                                                    onClick={handleCancelArrangement}
-                                                    className="text-red-400 border border-red-400/50 px-3 py-1 rounded-full text-xs"
-                                                >
-                                                    Cancel
-                                                </button>
-                                            </div>
-                                        )}
+                            <span className="flex items-center gap-2">
+                                <span className="text-xl">⚙️</span> Preferences & Boundaries
+                            </span>
+                            <span className="text-xl">{showPreferences ? '▲' : '▼'}</span>
+                        </button>
+                        {showPreferences && (
+                            <div className="p-5 pt-0 bg-dark-lighter">
+                                <div className="space-y-3">
+                                    {profileData.preferences.map((pref, index) => (
+                                        <div key={index} className="flex items-center gap-2 text-white/90">
+                                            <span className="text-xl">{pref.icon}</span>
+                                            <span>{pref.description}</span>
+                                            <span className="ml-2 text-primary font-semibold">({pref.score}/10)</span>
+                                        </div>
+                                    ))}
+                                    <div className="mt-4">
+                                        <span className="font-bold text-white block mb-1 text-left">Boundaries:</span>
+                                        <ul className="list-disc text-white/80 ml-7 space-y-1 text-left">
+                                            {profileData.boundaries.map((b, index) => (
+                                                <li key={index}>{b}</li>
+                                            ))}
+                                        </ul>
                                     </div>
-                                    {isEditingArrangement ? (
-                                        <div className="space-y-2">
-                                            {editedArrangement.map((arr, index) => (
-                                                <div key={index} className="flex flex-col sm:flex-row items-start sm:items-center gap-2 bg-dark-darker/50 rounded-lg p-2">
-                                                    <div className="flex items-center gap-2 flex-grow">
-                                                        <span className="text-xl">{arr.icon}</span>
-                                                        <input
-                                                            type="text"
-                                                            value={arr.type}
-                                                            onChange={(e) => handleArrangementChange(index, 'type', e.target.value)}
-                                                            placeholder="Type"
-                                                            className="flex-1 px-2 py-1 rounded-lg bg-dark-darker/80 text-white border border-white/10 text-sm"
-                                                        />
-                                                        <input
-                                                            type="text"
-                                                            value={arr.amount}
-                                                            onChange={(e) => handleArrangementChange(index, 'amount', e.target.value)}
-                                                            placeholder="Amount"
-                                                            className="flex-1 px-2 py-1 rounded-lg bg-dark-darker/80 text-white border border-white/10 text-sm"
-                                                        />
-                                                    </div>
-                                                    <input
-                                                        type="text"
-                                                        value={arr.notes}
-                                                        onChange={(e) => handleArrangementChange(index, 'notes', e.target.value)}
-                                                        placeholder="Notes"
-                                                        className="w-full sm:w-1/3 px-2 py-1 rounded-lg bg-dark-darker/80 text-white border border-white/10 text-sm"
-                                                    />
-                                                    <button
-                                                        onClick={() => handleRemoveArrangement(index)}
-                                                        className="text-red-400 border border-red-400/50 px-2 py-1 rounded-full text-xs"
-                                                    >
-                                                        Remove
-                                                    </button>
-                                                </div>
-                                            ))}
-                                            <button
-                                                onClick={handleAddArrangement}
-                                                className="text-green-400 border border-green-400/50 px-3 py-1 rounded-full text-xs mt-2"
-                                            >
-                                                Add Preference
-                                            </button>
-                                        </div>
-                                    ) : (
-                                        <div className="space-y-3">
-                                            {profileData.arrangementPreferences.map((arr, index) => (
-                                                <div key={index} className="flex items-center gap-2 text-white/90">
-                                                    <span className="text-xl flex items-center justify-center">{arr.icon}</span>
-                                                    <span className="font-semibold">{arr.type}:</span>
-                                                    <span className="ml-2 text-primary font-semibold">{arr.amount}</span>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    )}
                                 </div>
-                            )}
-                        </div>
+                            </div>
+                        )}
                     </div>
                 </div>
+
+                {/* Arrangement & Expectations */}
+                <div className="w-full max-w-xl mb-4">
+                    <div className="bg-dark-lighter/80 rounded-xl shadow border border-white/10">
+                        <button
+                            onClick={() => setShowArrangement(prev => !prev)}
+                            className="w-full flex items-center justify-between p-5 rounded-t-xl text-white text-lg font-semibold focus:outline-none"
+                        >
+                            <span className="flex items-center gap-2 truncate max-w-[80%]">
+                                <span className="text-xl">❤️</span>
+                                <span className="truncate">Arrangement & Expectations</span>
+                            </span>
+                            <span className="text-xl">{showArrangement ? '▲' : '▼'}</span>
+                        </button>
+                        {showArrangement && (
+                            <div className="p-5 pt-0 bg-dark-lighter">
+                                <div className="space-y-3">
+                                    {profileData.arrangementPreferences.map((arr, index) => (
+                                        <div key={index} className="flex items-center gap-2 text-white/90">
+                                            <span className="text-xl">{arr.icon}</span>
+                                            <span className="font-semibold">{arr.type}:</span>
+                                            <span className="ml-2 text-primary font-semibold">{arr.amount}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                </div>
+
                 {/* Intimacy Preferences Accordion */}
-                <div className="w-full max-w-2xl mb-8">
+                <div className="w-full max-w-xl mb-4">
                     <button onClick={() => setShowIntimacy(v => !v)} className="w-full flex items-center justify-between bg-dark-lighter/80 rounded-xl p-4 text-white font-semibold text-lg border border-white/10 hover:bg-dark-lighter/90 transition-all">
                         <span>Intimacy Preferences</span>
                         <span className="text-xl">{showIntimacy ? '▲' : '▼'}</span>
@@ -697,211 +431,92 @@ const ResultsPage = () => {
                         <div className="bg-dark-darker/80 rounded-b-xl p-4 border-t border-white/10">
                             <div className="flex justify-between items-center mb-4">
                                 <h3 className="text-lg font-bold text-white">&nbsp;</h3>
-                                {!isEditingIntimacy ? (
-                                    <button
-                                        onClick={handleEditIntimacy}
-                                        className="text-white text-xs px-3 py-1 rounded-full font-medium bg-gradient-to-r from-primary to-secondary hover:opacity-90"
-                                    >
-                                        Edit
-                                    </button>
-                                ) : (
-                                    <div className="flex gap-2">
-                                        <button
-                                            onClick={handleSaveIntimacy}
-                                            className="text-green-400 border border-green-400/50 px-3 py-1 rounded-full text-xs"
-                                        >
-                                            Save
-                                        </button>
-                                        <button
-                                            onClick={handleCancelIntimacy}
-                                            className="text-red-400 border border-red-400/50 px-3 py-1 rounded-full text-xs"
-                                        >
-                                            Cancel
-                                        </button>
-                                    </div>
-                                )}
                             </div>
-                            {isEditingIntimacy ? (
-                                <div className="space-y-3">
-                                    {editedIntimacy.map((pref, index) => (
-                                        <div key={index} className="flex items-center gap-2 text-white/90">
-                                            <span className="text-xl flex items-center justify-center">{pref.icon}</span>
-                                            <input
-                                                type="text"
-                                                value={pref.description}
-                                                onChange={e => handleIntimacyChange(index, 'description', e.target.value)}
-                                                className="flex-1 px-2 py-1 rounded-lg bg-dark-darker/80 text-white border border-white/10"
-                                            />
-                                            <input
-                                                type="number"
-                                                min="0"
-                                                max="10"
-                                                value={pref.score}
-                                                onChange={e => handleIntimacyChange(index, 'score', e.target.value)}
-                                                className="w-16 px-2 py-1 rounded-lg bg-dark-darker/80 text-white border border-white/10"
-                                            />
-                                            <span className="text-white/70">/10</span>
-                                        </div>
-                                    ))}
-                                </div>
-                            ) : (
-                                <div className="space-y-3">
-                                    {profileData.intimacyPreferences.map((pref, index) => (
-                                        <div key={index} className="flex items-center gap-2 text-white/90">
-                                            <span className="text-xl flex items-center justify-center">{pref.icon}</span>
-                                            <span>{pref.description}</span>
-                                            <span className="ml-2 text-primary font-semibold">({pref.score}/10)</span>
-                                        </div>
-                                    ))}
-                                </div>
-                            )}
+                            <div className="space-y-3">
+                                {profileData.intimacyPreferences.map((pref, index) => (
+                                    <div key={index} className="flex items-center gap-2 text-white/90">
+                                        <span className="text-xl flex items-center justify-center">{pref.icon}</span>
+                                        <span>{pref.description}</span>
+                                        <span className="ml-2 text-primary font-semibold">({pref.score}/10)</span>
+                                    </div>
+                                ))}
+                            </div>
                         </div>
                     )}
                 </div>
-                {/* Combined Extra Info Accordion */}
-                <div className="w-full max-w-2xl mb-8">
-                    <button onClick={() => setShowExtraInfo(v => !v)} className="w-full flex items-center justify-between bg-dark-lighter/80 rounded-xl p-4 text-white font-semibold text-lg border border-white/10 hover:bg-dark-lighter/90 transition-all">
-                        <span>More About You</span>
-                        <span className="text-xl">{showExtraInfo ? '▲' : '▼'}</span>
+                {/* Looking For Accordion */}
+                <div className="w-full max-w-xl mb-4">
+                    <button onClick={() => setShowLookingFor(v => !v)} className="w-full flex items-center justify-between bg-dark-lighter/80 rounded-xl p-4 text-white font-semibold text-lg border border-white/10 hover:bg-dark-lighter/90 transition-all">
+                        <span>Looking For</span>
+                        <span className="text-xl">{showLookingFor ? '▲' : '▼'}</span>
                     </button>
-                    {showExtraInfo && (
-                        <div className="bg-dark-darker/80 rounded-b-xl p-4 border-t border-white/10 space-y-8">
-                            {/* Looking For */}
-                            <div>
-                                <div className="flex justify-between items-center mb-2">
-                                    <h3 className="text-xl font-bold text-white">Looking For</h3>
-                                    {!isEditingLookingFor ? (
-                                        <button onClick={handleEditLookingFor} className="text-white text-xs px-3 py-1 rounded-full font-medium bg-gradient-to-r from-primary to-secondary hover:opacity-90">Edit</button>
-                                    ) : (
-                                        <div className="flex gap-2">
-                                            <button onClick={handleSaveLookingFor} className="text-green-400 border border-green-400/50 px-3 py-1 rounded-full text-xs">Save</button>
-                                            <button onClick={handleCancelLookingFor} className="text-red-400 border border-red-400/50 px-3 py-1 rounded-full text-xs">Cancel</button>
+                    {showLookingFor && (
+                        <div className="bg-dark-lighter rounded-b-xl p-4 border-t border-white/10">
+                            <ul className="list-disc list-inside text-white/80 pl-4">
+                                {profileData.lookingFor.map((item, index) => (
+                                    <li key={index}>✅ {item}</li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
+                </div>
+                {/* Upcoming Availability Accordion */}
+                <div className="w-full max-w-xl mb-4">
+                    <button onClick={() => setShowAvailability(v => !v)} className="w-full flex items-center justify-between bg-dark-lighter/80 rounded-xl p-4 text-white font-semibold text-lg border border-white/10 hover:bg-dark-lighter/90 transition-all">
+                        <span>Upcoming Availability</span>
+                        <span className="text-xl">{showAvailability ? '▲' : '▼'}</span>
+                    </button>
+                    {showAvailability && (
+                        <div className="bg-dark-lighter rounded-b-xl p-4 border-t border-white/10">
+                            <div className="space-y-4 text-white/80">
+                                {profileData.availability.map((day, index) => (
+                                    <div key={index}>
+                                        <span className="font-medium text-white">🗓 {day.date}:</span>
+                                        <div className="ml-6 space-y-2">
+                                            {day.times.map((time, timeIndex) => (
+                                                <span key={timeIndex} className="block">🕰 {time.period} <span className="text-white/70">({time.type} | 📍 {time.location})</span></span>
+                                            ))}
                                         </div>
-                                    )}
-                                </div>
-                                {isEditingLookingFor ? (
-                                    <div className="space-y-2">
-                                        {editedLookingFor.map((item, index) => (
-                                            <div key={index} className="flex items-center gap-2">
-                                                <span className="text-green-400">✅</span>
-                                                <input type="text" value={item} onChange={e => handleLookingForChange(index, e.target.value)} className="flex-1 px-4 py-2 rounded-lg bg-dark-darker/80 text-white border border-white/10" />
-                                                <button onClick={() => handleRemoveLookingFor(index)} className="text-red-400 border border-red-400/50 px-2 py-1 rounded-full text-xs">Remove</button>
-                                            </div>
-                                        ))}
-                                        <button onClick={handleAddLookingFor} className="text-green-400 border border-green-400/50 px-3 py-1 rounded-full text-xs mt-2">Add Item</button>
                                     </div>
-                                ) : (
-                                    <ul className="list-disc list-inside text-white/80 pl-4">
-                                        {profileData.lookingFor.map((item, index) => (
-                                            <li key={index}>✅ {item}</li>
-                                        ))}
-                                    </ul>
-                                )}
+                                ))}
+                                <span className="font-medium text-white">🗓 Suggest a Meetup: <span className="text-primary">Let's plan something special</span></span>
                             </div>
-                            <hr className='my-6 border-white/10' />
-                            {/* Availability */}
-                            <div>
-                                <div className="flex justify-between items-center mb-2">
-                                    <h3 className="text-xl font-bold text-white">Upcoming Availability</h3>
-                                    {!isEditingAvailability ? (
-                                        <button onClick={handleEditAvailability} className="text-white text-xs px-3 py-1 rounded-full font-medium bg-gradient-to-r from-primary to-secondary hover:opacity-90">Edit</button>
-                                    ) : (
-                                        <div className="flex gap-2">
-                                            <button onClick={handleSaveAvailability} className="text-green-400 border border-green-400/50 px-3 py-1 rounded-full text-xs">Save</button>
-                                            <button onClick={handleCancelAvailability} className="text-red-400 border border-red-400/50 px-3 py-1 rounded-full text-xs">Cancel</button>
-                                        </div>
-                                    )}
-                                </div>
-                                {isEditingAvailability ? (
-                                    <div className="space-y-4">
-                                        {editedAvailability.map((day, dayIndex) => (
-                                            <div key={dayIndex} className="bg-dark-darker/50 rounded-lg p-4 space-y-3">
-                                                <div className="flex items-center gap-2">
-                                                    <span className="text-white font-medium">🗓</span>
-                                                    <input type="text" value={day.date} onChange={e => handleAvailabilityChange(dayIndex, null, 'date', e.target.value)} placeholder="Date" className="flex-1 px-2 py-1 rounded-lg bg-dark-darker/80 text-white border border-white/10 text-sm" />
-                                                    <button onClick={() => handleRemoveAvailabilityDay(dayIndex)} className="text-red-400 border border-red-400/50 px-2 py-1 rounded-full text-xs">Remove Day</button>
-                                                </div>
-                                                <div className="ml-6 space-y-2">
-                                                    {day.times.map((time, timeIndex) => (
-                                                        <div key={timeIndex} className="flex flex-wrap items-center gap-2">
-                                                            <span className="text-white/70">🕰</span>
-                                                            <input type="text" value={time.period} onChange={e => handleAvailabilityChange(dayIndex, timeIndex, 'period', e.target.value)} placeholder="Period" className="w-24 px-2 py-1 rounded-lg bg-dark-darker/80 text-white border border-white/10 text-sm" />
-                                                            <input type="text" value={time.type} onChange={e => handleAvailabilityChange(dayIndex, timeIndex, 'type', e.target.value)} placeholder="Type" className="w-20 px-2 py-1 rounded-lg bg-dark-darker/80 text-white border border-white/10 text-sm" />
-                                                            <input type="text" value={time.location} onChange={e => handleAvailabilityChange(dayIndex, timeIndex, 'location', e.target.value)} placeholder="Location" className="flex-1 px-2 py-1 rounded-lg bg-dark-darker/80 text-white border border-white/10 text-sm" />
-                                                            <button onClick={() => handleRemoveAvailabilityTime(dayIndex, timeIndex)} className="text-red-400 border border-red-400/50 px-2 py-1 rounded-full text-xs">Remove Time</button>
-                                                        </div>
-                                                    ))}
-                                                    <button onClick={() => handleAddAvailabilityTime(dayIndex)} className="text-green-400 border border-green-400/50 px-3 py-1 rounded-full text-xs mt-2">Add Time Slot</button>
-                                                </div>
-                                            </div>
-                                        ))}
-                                        <button onClick={handleAddAvailabilityDay} className="text-green-400 border border-green-400/50 px-3 py-1 rounded-full text-xs mt-2">Add Day</button>
-                                    </div>
-                                ) : (
-                                    <div className="space-y-4 text-white/80">
-                                        {profileData.availability.map((day, index) => (
-                                            <div key={index}>
-                                                <span className="font-medium text-white">🗓 {day.date}:</span>
-                                                <div className="ml-6 space-y-2">
-                                                    {day.times.map((time, timeIndex) => (
-                                                        <span key={timeIndex} className="block">🕰 {time.period} <span className="text-white/70">({time.type} | 📍 {time.location})</span></span>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                        ))}
-                                        <span className="font-medium text-white">🗓 Suggest a Meetup: <span className="text-primary">Let's plan something special</span></span>
-                                    </div>
-                                )}
+                        </div>
+                    )}
+                </div>
+                {/* My Dating Profiles Accordion */}
+                <div className="w-full max-w-xl mb-4">
+                    <button onClick={() => setShowDatingProfiles(v => !v)} className="w-full flex items-center justify-between bg-dark-lighter/80 rounded-xl p-4 text-white font-semibold text-lg border border-white/10 hover:bg-dark-lighter/90 transition-all">
+                        <span>My Dating Profiles</span>
+                        <span className="text-xl">{showDatingProfiles ? '▲' : '▼'}</span>
+                    </button>
+                    {showDatingProfiles && (
+                        <div className="bg-dark-lighter rounded-b-xl p-4 border-t border-white/10">
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-white/80">
+                                {profileData.datingProfiles.map((profile, index) => (
+                                    <span key={index}>{profile.icon} {profile.name}</span>
+                                ))}
                             </div>
-                            <hr className='my-6 border-white/10' />
-                            {/* My Dating Profiles */}
-                            <div>
-                                <div className="flex justify-between items-center mb-2">
-                                    <h3 className="text-xl font-bold text-white">My Dating Profiles</h3>
-                                    {!isEditingDatingProfiles ? (
-                                        <button onClick={handleEditDatingProfiles} className="text-white text-xs px-3 py-1 rounded-full font-medium bg-gradient-to-r from-primary to-secondary hover:opacity-90">Edit</button>
-                                    ) : (
-                                        <div className="flex gap-2">
-                                            <button onClick={handleSaveDatingProfiles} className="text-green-400 border border-green-400/50 px-3 py-1 rounded-full text-xs">Save</button>
-                                            <button onClick={handleCancelDatingProfiles} className="text-red-400 border border-red-400/50 px-3 py-1 rounded-full text-xs">Cancel</button>
-                                        </div>
-                                    )}
-                                </div>
-                                {isEditingDatingProfiles ? (
-                                    <div className="space-y-2">
-                                        {editedDatingProfiles.map((profile, index) => (
-                                            <div key={index} className="flex items-center gap-2">
-                                                <input type="text" value={profile.icon} onChange={e => handleDatingProfileChange(index, 'icon', e.target.value)} placeholder="Icon" className="w-16 px-2 py-1 rounded-lg bg-dark-darker/80 text-white border border-white/10 text-sm" />
-                                                <input type="text" value={profile.name} onChange={e => handleDatingProfileChange(index, 'name', e.target.value)} placeholder="Profile Name" className="flex-1 px-4 py-2 rounded-lg bg-dark-darker/80 text-white border border-white/10" />
-                                                <button onClick={() => handleRemoveDatingProfile(index)} className="text-red-400 border border-red-400/50 px-2 py-1 rounded-full text-xs">Remove</button>
-                                            </div>
-                                        ))}
-                                        <button onClick={handleAddDatingProfile} className="text-green-400 border border-green-400/50 px-3 py-1 rounded-full text-xs mt-2">Add Profile</button>
-                                    </div>
-                                ) : (
-                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-white/80">
-                                        {profileData.datingProfiles.map((profile, index) => (
-                                            <span key={index}>{profile.icon} {profile.name}</span>
-                                        ))}
-                                    </div>
-                                )}
-                            </div>
-                            <hr className='my-6 border-white/10' />
-                            {/* Latest Message */}
-                            <div>
-                                <h3 className="text-xl font-bold text-white mb-2">Latest Message</h3>
-                                <div className="text-white/80">
-                                    <span className="font-medium text-white mb-2 block">💬 {profileData.latestMessage.from} <span className="text-white/70 text-sm">— (Sent: {profileData.latestMessage.sentTime})</span></span>
-                                    <span>{profileData.latestMessage.content}</span>
-                                    <button className="mt-4 px-6 py-2 rounded-full text-sm font-medium text-white bg-primary hover:opacity-90 transition-all duration-300 shadow-lg shadow-primary/20 border-none outline-none focus:outline-none">➡️ Reply here</button>
-                                </div>
-                            </div>
+                        </div>
+                    )}
+                </div>
+                {/* Latest Message Accordion */}
+                <div className="w-full max-w-xl mb-8">
+                    <button onClick={() => setShowLatestMessage(v => !v)} className="w-full flex items-center justify-between bg-dark-lighter/80 rounded-xl p-4 text-white font-semibold text-lg border border-white/10 hover:bg-dark-lighter/90 transition-all">
+                        <span>Latest Message</span>
+                        <span className="text-xl">{showLatestMessage ? '▲' : '▼'}</span>
+                    </button>
+                    {showLatestMessage && (
+                        <div className="bg-dark-lighter rounded-b-xl p-4 border-t border-white/10">
+                            <span className="font-medium text-white mb-2 block">💬 {profileData.latestMessage.from} <span className="text-white/70 text-sm">— (Sent: {profileData.latestMessage.sentTime})</span></span>
+                            <span className="text-white/80">{profileData.latestMessage.content}</span>
+                            <button className="mt-4 px-6 py-2 rounded-full text-sm font-medium text-white bg-primary hover:opacity-90 transition-all duration-300 shadow-lg shadow-primary/20 border-none outline-none focus:outline-none">➡️ Reply here</button>
                         </div>
                     )}
                 </div>
                 {/* Top Matches */}
                 <div className="w-full max-w-2xl mb-8">
-                    <h3 className="text-white text-xl font-bold mb-4">Top Matches</h3>
+                    <h3 className="text-white text-xl font-bold mb-4">Top 3 Sugar Babies Who Match Your Profile</h3>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                         {profileData.matchedProfiles.map((match, index) => (
                             <div key={index} className="bg-dark-lighter/80 rounded-xl p-4 flex flex-col items-center shadow border border-white/10">
@@ -912,6 +527,7 @@ const ResultsPage = () => {
                                 <p className="text-white/70 text-sm mb-2">⭐ {match.score}/5 ({match.reviews} reviews)</p>
                                 <p className="text-white/80 text-sm leading-relaxed mb-2">✨ {match.summary}</p>
                                 <button className="w-full bg-red-500 hover:bg-red-600 text-white font-semibold py-2 rounded-lg text-base mt-2 transition-all">Message</button>
+                                <button className="w-full bg-cyan-500 hover:bg-cyan-600 text-white font-semibold py-2 rounded-lg text-base mt-2 transition-all" onClick={() => {/* TODO: Add view profile logic */ }}>View Profile</button>
                             </div>
                         ))}
                     </div>
