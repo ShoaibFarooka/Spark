@@ -310,16 +310,16 @@ const ResultsPage = () => {
                             </div>
                             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-white/80">
                                 <div className="flex items-center gap-2">
-                                    <span className="text-white/60">🪪</span>
-                                    <span>{profileData.verification.identity ? 'Identity Verified' : 'Not Verified'}</span>
+                                    <span className="text-2xl w-5 flex justify-center text-white/60">🪪</span>
+                                    <span className="flex-1">{profileData.verification.identity ? 'Identity Verified' : 'Not Verified'}</span>
                                 </div>
                                 <div className="flex items-center gap-2">
-                                    <span className="text-white/60">📷</span>
-                                    <span>{profileData.verification.liveness ? 'Liveness Verified' : 'Not Verified'}</span>
+                                    <span className="text-2xl w-8 flex justify-center text-white/60">📷</span>
+                                    <span className="flex-1">{profileData.verification.liveness ? 'Liveness Verified' : 'Not Verified'}</span>
                                 </div>
                                 <div className="flex items-center gap-2">
-                                    <span className="text-white/60">🌐</span>
-                                    <span>{profileData.verification.socialMedia ? 'Social Media Verified' : 'Not Verified'}</span>
+                                    <span className="text-2xl w-8 flex justify-center text-white/60">🌐</span>
+                                    <span className="flex-1">{profileData.verification.socialMedia ? 'Social Media Verified' : 'Not Verified'}</span>
                                 </div>
                             </div>
                         </div>
@@ -345,9 +345,9 @@ const ResultsPage = () => {
 
                             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-white/90">
                                 {profileData.connectionScore.ratings.map((rating, index) => (
-                                    <div key={index} className="flex items-center gap-2">
-                                        <span className="text-xl">{rating.icon}</span>
-                                        <span className="whitespace-nowrap">{rating.name} {rating.score}/5</span>
+                                    <div key={index} className="flex items-center gap-2 min-w-0">
+                                        <span className="text-2xl w-8 flex justify-center">{rating.icon}</span>
+                                        <span className="flex-1 min-w-0">{rating.name} {rating.score}/5</span>
                                     </div>
                                 ))}
                             </div>
@@ -373,13 +373,13 @@ const ResultsPage = () => {
                                 <div className="space-y-3">
                                     {profileData.preferences.map((pref, index) => (
                                         <div key={index} className="flex items-center gap-2 text-white/90">
-                                            <span className="text-xl">{pref.icon}</span>
-                                            <span>{pref.description}</span>
+                                            <span className="text-2xl w-8 flex justify-center">{pref.icon}</span>
+                                            <span className="flex-1">{pref.description}</span>
                                             <span className="ml-2 text-primary font-semibold">({pref.score}/10)</span>
                                         </div>
                                     ))}
                                     <div className="mt-4">
-                                        <span className="font-bold text-white block mb-1 text-left">Boundaries:</span>
+                                        <span className="font-bold text-white block mb-1 px-2 text-left">Boundaries:</span>
                                         <ul className="list-disc text-white/80 ml-7 space-y-1 text-left">
                                             {profileData.boundaries.map((b, index) => (
                                                 <li key={index}>{b}</li>
@@ -410,8 +410,8 @@ const ResultsPage = () => {
                                 <div className="space-y-3">
                                     {profileData.arrangementPreferences.map((arr, index) => (
                                         <div key={index} className="flex items-center gap-2 text-white/90">
-                                            <span className="text-xl">{arr.icon}</span>
-                                            <span className="font-semibold">{arr.type}:</span>
+                                            <span className="text-2xl w-8 flex justify-center">{arr.icon}</span>
+                                            <span className="font-semibold flex-1">{arr.type}:</span>
                                             <span className="ml-2 text-primary font-semibold">{arr.amount}</span>
                                         </div>
                                     ))}
@@ -428,15 +428,12 @@ const ResultsPage = () => {
                         <span className="text-xl">{showIntimacy ? '▲' : '▼'}</span>
                     </button>
                     {showIntimacy && (
-                        <div className="bg-dark-darker/80 rounded-b-xl p-4 border-t border-white/10">
-                            <div className="flex justify-between items-center mb-4">
-                                <h3 className="text-lg font-bold text-white">&nbsp;</h3>
-                            </div>
+                        <div className="bg-dark-lighter/80 rounded-b-xl p-4 border-t border-white/10">
                             <div className="space-y-3">
                                 {profileData.intimacyPreferences.map((pref, index) => (
                                     <div key={index} className="flex items-center gap-2 text-white/90">
-                                        <span className="text-xl flex items-center justify-center">{pref.icon}</span>
-                                        <span>{pref.description}</span>
+                                        <span className="text-2xl w-8 flex justify-center">{pref.icon}</span>
+                                        <span className="flex-1">{pref.description}</span>
                                         <span className="ml-2 text-primary font-semibold">({pref.score}/10)</span>
                                     </div>
                                 ))}
@@ -492,9 +489,9 @@ const ResultsPage = () => {
                     </button>
                     {showDatingProfiles && (
                         <div className="bg-dark-lighter rounded-b-xl p-4 border-t border-white/10">
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-white/80">
+                            <div className="flex flex-wrap gap-4 text-white/80">
                                 {profileData.datingProfiles.map((profile, index) => (
-                                    <span key={index}>{profile.icon} {profile.name}</span>
+                                    <span key={index} className="flex items-center gap-2 min-w-0"><span className="text-xl w-8 flex justify-center">{profile.icon}</span><span className="flex-1 min-w-0 break-words">{profile.name}</span></span>
                                 ))}
                             </div>
                         </div>
@@ -510,7 +507,9 @@ const ResultsPage = () => {
                         <div className="bg-dark-lighter rounded-b-xl p-4 border-t border-white/10">
                             <span className="font-medium text-white mb-2 block">💬 {profileData.latestMessage.from} <span className="text-white/70 text-sm">— (Sent: {profileData.latestMessage.sentTime})</span></span>
                             <span className="text-white/80">{profileData.latestMessage.content}</span>
-                            <button className="mt-4 px-6 py-2 rounded-full text-sm font-medium text-white bg-primary hover:opacity-90 transition-all duration-300 shadow-lg shadow-primary/20 border-none outline-none focus:outline-none">➡️ Reply here</button>
+                            <div className="w-full flex justify-start mt-4">
+                                <button className="px-6 py-2 rounded-full text-sm font-medium text-white bg-primary hover:opacity-90 transition-all duration-300 shadow-lg shadow-primary/20 border-none outline-none focus:outline-none">➡️ Reply here</button>
+                            </div>
                         </div>
                     )}
                 </div>
@@ -521,7 +520,7 @@ const ResultsPage = () => {
                         {profileData.matchedProfiles.map((match, index) => (
                             <div key={index} className="bg-dark-lighter/80 rounded-xl p-4 flex flex-col items-center shadow border border-white/10">
                                 <div className="w-20 h-20 rounded-full bg-gradient-to-r from-primary to-secondary p-1 mb-3">
-                                    <div className="w-full h-full rounded-full bg-dark-darker flex items-center justify-center text-3xl opacity-60 blur-sm">{match.icon}</div>
+                                    <div className="w-full h-full rounded-full bg-dark-darker flex items-center justify-center text-2xl opacity-60 blur-sm"><span className="text-2xl w-8 flex justify-center">{match.icon}</span></div>
                                 </div>
                                 <div className="text-white font-semibold mb-1">{match.name}</div>
                                 <p className="text-white/70 text-sm mb-2">⭐ {match.score}/5 ({match.reviews} reviews)</p>
